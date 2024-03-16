@@ -1,7 +1,5 @@
 # Sorgulat Monorepo
 
-## What's inside?
-
 This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
