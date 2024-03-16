@@ -1,6 +1,7 @@
 {
   "name": "sorgulat",
   "private": true,
+  "repository": "https://github.com/ernemmez/sorgulat.git",
   "scripts": {
     "prepare": "husky install",
     "build": "turbo build",
@@ -8,7 +9,8 @@
     "lint": "turbo lint",
     "eslint": "eslint --fix --ext=.jsx,.js,.tsx,.ts",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "commit": "cz"
+    "commit": "cz",
+    "postinstall": ""
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
