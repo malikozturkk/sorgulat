@@ -2,16 +2,26 @@
   "name": "sorgulat",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "eslint": "eslint --fix --ext=.jsx,.js,.tsx,.ts",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "commit": "cz"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "prettier": "^3.2.5",
-    "turbo": "latest"
+    "turbo": "latest",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@commitlint/prompt-cli": "^17.1.2",
+    "husky": "^8.0.1",
+    "eslint": "^7.6.0"
   },
   "engines": {
     "node": ">=18"
@@ -20,5 +30,15 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+    "@commitlint/config-conventional"
+    ]
+  }
 }

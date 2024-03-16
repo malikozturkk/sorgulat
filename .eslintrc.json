@@ -1,0 +1,79 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "extends": ["plugin:react/recommended", "plugin:@typescript-eslint/recommended", "airbnb", "airbnb/hooks", "prettier", "prettier/react", "prettier/@typescript-eslint"],
+  "plugins": ["react", "import", "prettier", "@typescript-eslint", "tree-shaking"],
+  "rules": {
+    "eqeqeq": "warn",
+    "no-underscore-dangle": "off",
+    "camelcase": "off",
+    "no-nested-ternary": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-unused-vars": "warn",
+    "import/no-extraneous-dependencies": "warn",
+    "import/order": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    // prettier
+    "prettier/prettier": ["error"],
+    // TypeScript
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/no-unescaped-entities": "warn",
+    "@typescript-eslint/no-empty-interface": [
+      "warn",
+      {
+        "allowSingleExtends": true
+      }
+    ],
+    // React
+    "react/no-array-index-key": "warn",
+    "react/prop-types": 0,
+    "react/require-default-props": "off",
+    "react/default-props-match-prop-types": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".ts", ".tsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/aria-props": "warn"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": ["tsconfig.json", "packages/design-system/tsconfig.json", "packages/frontend-components/tsconfig.json", "packages/icons/tsconfig.json"]
+      }
+    }
+  }
+}
