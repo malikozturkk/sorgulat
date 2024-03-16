@@ -20,8 +20,7 @@
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
     "@commitlint/prompt-cli": "^17.1.2",
-    "husky": "^8.0.1",
-    "eslint": "^7.6.0"
+    "husky": "^8.0.1"
   },
   "engines": {
     "node": ">=18"
