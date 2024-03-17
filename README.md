@@ -12,10 +12,6 @@ This Turborepo includes the following packages/apps:
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`).
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo.
 
-### CoreAPI Swagger Docs
-
-`http://localhost:3024/v1/docs/`
-
 ### Develop
 
 To develop all apps and packages, run the following command:
