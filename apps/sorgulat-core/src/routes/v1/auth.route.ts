@@ -50,24 +50,58 @@ export default router;
  *             type: object
  *             required:
  *               - name
+ *               - lastName
  *               - email
+ *               - phone
  *               - password
+ *               - organisation
+ *               - privacyPolicy
+ *               - commercialMsg
  *             properties:
  *               name:
+ *                 type: string
+ *               lastName:
  *                 type: string
  *               email:
  *                 type: string
  *                 format: email
  *                 description: must be unique
+ *               phone:
+ *                 type: object
+ *                 properties:
+ *                   countryCode:
+ *                     type: string
+ *                   number:
+ *                     type: integer
  *               password:
  *                 type: string
  *                 format: password
  *                 minLength: 8
  *                 description: At least one number and one letter
+ *               organisation:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                   address:
+ *                     type: string
+ *               privacyPolicy:
+ *                 type: boolean
+ *               commercialMsg:
+ *                 type: boolean
  *             example:
- *               name: fake name
- *               email: fake@example.com
- *               password: password1
+ *               name: Eren
+ *               lastName: Emmez
+ *               email: emmezeren@gmail.com
+ *               phone:
+ *                 countryCode: "+90"
+ *                 number: 5453860523
+ *               password: erenMalik123
+ *               organisation:
+ *                 name: Sorgulat
+ *                 address: xx mahallesi no:34 istanbul
+ *               privacyPolicy: true
+ *               commercialMsg: false
  *     responses:
  *       "201":
  *         description: Created
@@ -107,7 +141,7 @@ export default router;
  *                 type: string
  *                 format: password
  *             example:
- *               email: fake@example.com
+ *               email: emmezeren@gmail.com
  *               password: password1
  *     responses:
  *       "200":

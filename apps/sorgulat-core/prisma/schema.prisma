@@ -14,12 +14,25 @@ model User {
   id              Int      @id @default(autoincrement())
   email           String   @unique
   name            String?
+  lastName        String?
   password        String
+  phone           Json
+  organisationId  Int
+  organisation    Organisation  @relation(fields: [organisationId], references: [id])
+  privacyPolicy   Boolean  @default(false)
+  commercialMsg   Boolean  @default(false)
   role            Role     @default(USER)
   isEmailVerified Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   Token           Token[]
+}
+
+model Organisation {
+  id      Int    @id @default(autoincrement())
+  name    String
+  address String
+  User    User[]
 }
 
 model Token {

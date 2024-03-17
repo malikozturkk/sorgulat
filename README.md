@@ -40,3 +40,6 @@ To develop all apps and packages, run the following command:
 cd sorgulat
 yarn dev
 ```
+
+### CoreAPI Swagger Docs
+`http://localhost:3024/v1/docs/`

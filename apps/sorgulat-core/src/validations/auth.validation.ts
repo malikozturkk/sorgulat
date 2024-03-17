@@ -3,8 +3,20 @@ import { password } from './custom.validation';
 
 const register = {
   body: Joi.object().keys({
+    name: Joi.string().required(),
+    lastName: Joi.string().required(),
     email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password)
+    phone: Joi.object().keys({
+      countryCode: Joi.string().required(),
+      number: Joi.number().required(),
+    }).required(),
+    password: Joi.string().required(),
+    organisation: Joi.object().keys({
+      name: Joi.string().required(),
+      address: Joi.string().required(),
+    }).required(),
+    privacyPolicy: Joi.boolean().required(),
+    commercialMsg: Joi.boolean().required(),
   })
 };
 

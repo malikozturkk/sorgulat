@@ -1,13 +1,22 @@
-import { Role } from '@prisma/client';
 import Joi from 'joi';
 import { password } from './custom.validation';
 
 const createUser = {
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    role: Joi.string().required().valid(Role.USER, Role.ADMIN)
+    lastName: Joi.string().required(),
+    email: Joi.string().required().email(),
+    phone: Joi.object().keys({
+      countryCode: Joi.string().required(),
+      number: Joi.number().required(),
+    }).required(),
+    password: Joi.string().required(),
+    organisation: Joi.object().keys({
+      name: Joi.string().required(),
+      address: Joi.string().required(),
+    }).required(),
+    privacyPolicy: Joi.boolean().required(),
+    commercialMsg: Joi.boolean().required(),
   })
 };
 

@@ -1,29 +1,36 @@
-import { User, Role, Prisma } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import prisma from '../client';
 import ApiError from '../utils/ApiError';
 import { encryptPassword } from '../utils/encryption';
+import { TCreateUser } from '../types/auth';
 
 /**
  * Create a user
  * @param {Object} userBody
  * @returns {Promise<User>}
  */
-const createUser = async (
-  email: string,
-  password: string,
-  name?: string,
-  role: Role = Role.USER
-): Promise<User> => {
+const createUser = async (payloadUser: TCreateUser): Promise<User> => {
+  const { email, password, organisation } = payloadUser;
+
   if (await getUserByEmail(email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
+
+  const prismaOrganisation = await prisma.organisation.create({
+    data: {
+      name: organisation.name,
+      address: organisation.address
+    }
+  });
+
   return prisma.user.create({
     data: {
-      email,
-      name,
+      ...payloadUser,
+      organisation: {
+        connect: { id: prismaOrganisation.id }
+      },
       password: await encryptPassword(password),
-      role
     }
   });
 };
