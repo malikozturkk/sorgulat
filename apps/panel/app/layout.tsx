@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={clsx("font-sans antialiased", fontSans.className)}>
         <Providers>
+          {/* @ts-ignore */}
           {children}
         </Providers>
       </body>
