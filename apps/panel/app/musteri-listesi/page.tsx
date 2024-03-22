@@ -1,5 +1,9 @@
 const CustomerList = () => {
-  return <div>müşteri listesi sayfası</div>;
+  return (
+    <div>
+      <div>müşteri listesi sayfası</div>
+    </div>
+  );
 };
 
 export default CustomerList;
