@@ -1,8 +1,18 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
-    "outDir": "dist"
-  },
-  "include": ["src"],
+		"strict": true,
+		"plugins": [{ "name": "next" }],
+		"paths": {
+			"@/*": ["./*"]
+		}
+	},
+  "include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"tailwind.config.ts"
+	],
   "exclude": ["node_modules", "dist"]
 }
