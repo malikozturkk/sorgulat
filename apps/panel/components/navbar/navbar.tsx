@@ -7,12 +7,14 @@ import { SearchIcon } from '../icons/searchicon';
 import { BurguerButton } from './burguer-button';
 import { NotificationsDropdown } from './notifications-dropdown';
 import { UserDropdown } from './user-dropdown';
+import { useAuth } from '@/context/AuthContext';
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const NavbarWrapper = ({ children }: Props) => {
+  const { user } = useAuth();
   return (
     <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <Navbar
@@ -51,9 +53,11 @@ export const NavbarWrapper = ({ children }: Props) => {
           <Link href="https://github.com/Siumauricio/nextui-dashboard-template" target={'_blank'}>
             <GithubIcon />
           </Link>
-          <NavbarContent>
-            <UserDropdown />
-          </NavbarContent>
+          {user && (
+            <NavbarContent>
+              <UserDropdown />
+            </NavbarContent>
+          )}
         </NavbarContent>
       </Navbar>
       {children}
