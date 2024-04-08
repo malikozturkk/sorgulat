@@ -34,7 +34,7 @@ const loginUserWithEmailAndPassword = async (
     'commercialMsg'
   ]);
   if (!user || !(await isPasswordMatch(password, user.password as string))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'E-posta adresi veya şifre yanlış');
   }
   return exclude(user, ['password']);
 };
@@ -70,7 +70,7 @@ const refreshAuth = async (refreshToken: string): Promise<AuthTokensResponse> =>
     await prisma.token.delete({ where: { id: refreshTokenData.id } });
     return tokenService.generateAuthTokens({ id: userId });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Lütfen kimliğinizi doğrulayın');
   }
 };
 
@@ -94,7 +94,7 @@ const resetPassword = async (resetPasswordToken: string, newPassword: string): P
     await userService.updateUserById(user.id, { password: encryptedPassword });
     await prisma.token.deleteMany({ where: { userId: user.id, type: TokenType.RESET_PASSWORD } });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Şifre sıfırlama işlemi başarısız oldu');
   }
 };
 
@@ -114,7 +114,7 @@ const verifyEmail = async (verifyEmailToken: string): Promise<void> => {
     });
     await userService.updateUserById(verifyEmailTokenData.userId, { isEmailVerified: true });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'E-posta doğrulama işlemi başarısız oldu');
   }
 };
 

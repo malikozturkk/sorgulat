@@ -142,7 +142,7 @@ export default router;
  *                 format: password
  *             example:
  *               email: emmezeren@gmail.com
- *               password: password1
+ *               password: erenMalik123
  *     responses:
  *       "200":
  *         description: OK
@@ -278,7 +278,7 @@ export default router;
  *                 minLength: 8
  *                 description: At least one number and one letter
  *             example:
- *               password: password1
+ *               password: erenMalik123
  *     responses:
  *       "204":
  *         description: No content

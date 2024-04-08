@@ -14,7 +14,7 @@ const createUser = async (payloadUser: TCreateUser): Promise<User> => {
   const { email, password, organisation } = payloadUser;
 
   if (await getUserByEmail(email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Bu e-posta ile daha önce kayıt olunmuş');
   }
 
   const prismaOrganisation = await prisma.organisation.create({
@@ -143,7 +143,7 @@ const updateUserById = async <Key extends keyof User>(
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
   if (updateBody.email && (await getUserByEmail(updateBody.email as string))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Bu e-posta ile daha önce kayıt olunmuş');
   }
   const updatedUser = await prisma.user.update({
     where: { id: user.id },

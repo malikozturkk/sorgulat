@@ -64,7 +64,7 @@ export default router;
  *             example:
  *               name: fake name
  *               email: fake@example.com
- *               password: password1
+ *               password: erenMalik123
  *               role: user
  *     responses:
  *       "201":
@@ -210,7 +210,7 @@ export default router;
  *             example:
  *               name: fake name
  *               email: fake@example.com
- *               password: password1
+ *               password: erenMalik123
  *     responses:
  *       "200":
  *         description: OK
