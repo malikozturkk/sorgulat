@@ -44,6 +44,7 @@ const refreshTokenFunction = async () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>(null);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   React.useEffect(() => {
@@ -71,8 +72,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.log(response, 'response');
         setError('Login error occurred');
       }
-    } catch (error) {
+    } catch (error: any) {
       setError(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const forgotPassword = async (email: string): Promise<void> => {
+    setLoading(true);
+    try {
+      const response = await api.post<AuthResponse>('/forgot-password', { email });
+      if (response.status === 204) {
+        setSuccess('E-posta adresinize gönderdiğimiz şifre sıfırlama mailinden yeni şifrenizi oluşturabilirsiniz.');
+        setError('');
+      }
+    } catch (error: any) {
+      setError(error?.response?.data?.message);
+      setSuccess('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const passwordReset = async (password: string, token: any): Promise<void> => {
+    setLoading(true);
+    try {
+      const response = await api.post<AuthResponse>(`/reset-password?token=${token}`, { password });
+      if (response.status === 204) {
+        setSuccess('Şifre başarıyla değiştirildi, giriş yapabilirsiniz.');
+        setError('');
+      }
+    } catch (error: any) {
+      setError(error?.response?.data?.message);
+      setSuccess('');
     } finally {
       setLoading(false);
     }
@@ -82,6 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     Cookies.remove('accessTokenExpires');
+    window.location.href = '/giris';
     setUser(null);
   };
 
@@ -97,12 +131,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } else {
         setError('Registration error occurred');
       }
-    } catch (error) {
+    } catch (error: any) {
       setError(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return <AuthContext.Provider value={{ user, error, loading, login, logout, register }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, error, success, loading, login, forgotPassword, passwordReset, logout, register }}>{children}</AuthContext.Provider>;
 };

@@ -37,6 +37,7 @@ const Login = () => {
             <FormInput
               control={control}
               name="password"
+              minLength={8}
               label="Şifre"
               placeholder="Şifreniz"
               type={isVisible ? 'text' : 'password'}

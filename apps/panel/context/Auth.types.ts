@@ -1,8 +1,11 @@
 export interface AuthContextType {
   user: any;
-  error?: any;
+  error?: string;
+  success?: string;
   loading?: any;
-  login: (username: string, password: string) => void;
+  login: (email: string, password: string) => void;
+  forgotPassword: (email: string) => void;
+  passwordReset: (email: string, token: any) => void;
   logout: () => void;
   register: (payload: RegisterPayload) => void;
 }
@@ -15,6 +18,10 @@ export type Tokens = {
 export interface LoginPayload {
   email: string;
   password: string;
+}
+
+export interface ForgotPasswordPayload {
+  email: string;
 }
 
 export interface AuthResponse {
@@ -52,4 +59,8 @@ export interface RegisterFormPayload {
   organisationAddress: string;
   privacyPolicy: boolean;
   commercialMsg: boolean;
+}
+
+export interface ResetPasswordPayload {
+  password: string;
 }
