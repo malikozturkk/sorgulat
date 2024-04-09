@@ -58,9 +58,9 @@ const Login = () => {
               <Link href="/uye-ol">
                 <Button>Üye Ol</Button>
               </Link>
-              <div>
+              <Link href="/sifremi-unuttum">
                 <Button>Şifremi Unuttum</Button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
