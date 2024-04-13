@@ -10,6 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ENUMS
+enum Role {
+  USER
+  ADMIN
+}
+
+enum TokenType {
+  ACCESS
+  REFRESH
+  RESET_PASSWORD
+  VERIFY_EMAIL
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  LGBT
+}
+
+// Models
 model User {
   id              Int      @id @default(autoincrement())
   email           String   @unique
@@ -28,13 +48,6 @@ model User {
   Token           Token[]
 }
 
-model Organisation {
-  id      Int    @id @default(autoincrement())
-  name    String
-  address String
-  User    User[]
-}
-
 model Token {
   id          Int       @id @default(autoincrement())
   token       String
@@ -46,14 +59,54 @@ model Token {
   userId      Int
 }
 
-enum Role {
-  USER
-  ADMIN
+model Organisation {
+  id      Int    @id @default(autoincrement())
+  name    String
+  address String
+  User    User[]
+  customerLists  CustomerList[]
 }
 
-enum TokenType {
-  ACCESS
-  REFRESH
-  RESET_PASSWORD
-  VERIFY_EMAIL
+model CustomerList {
+  id              Int       @id @default(autoincrement())
+  name            String
+  description     String?
+  creationDate    DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  customers       Customer[]
+  segments        Segment[]
+  organisationId  Int
+  organisation    Organisation  @relation(fields: [organisationId], references: [id])
+}
+
+model Customer {
+  id                         Int                @id @default(autoincrement())
+  customerList               CustomerList       @relation(fields: [customerListId], references: [id])
+  customerListId             Int
+  firstName                  String
+  lastName                   String
+  email                      String
+  phone                      String?
+  age                        Int    
+  gender                     Gender 
+  location                   String?
+  incomeLevel                String?            
+  educationLevel             String?     
+  websiteTimeSpent           Int?        
+  pageViewCount              Int?        
+  purchaseHistory            String?     
+  emailOpeningRate           Float?      
+  clickRate                  Float?      
+  socialMediaInteraction     Json?       
+  interests                  String?     
+  lastActivityDate           DateTime?   
+}
+
+model Segment {
+  id             Int               @id @default(autoincrement())
+  customerList   CustomerList      @relation(fields: [customerListId], references: [id])
+  customerListId Int
+  name           String
+  description    String?
+  criteria       String
 }

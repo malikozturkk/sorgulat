@@ -65,7 +65,7 @@ export default router;
  *               email:
  *                 type: string
  *                 format: email
- *                 description: must be unique
+ *                 description: unique olmalı
  *               phone:
  *                 type: object
  *                 properties:
@@ -77,7 +77,7 @@ export default router;
  *                 type: string
  *                 format: password
  *                 minLength: 8
- *                 description: At least one number and one letter
+ *                 description: En az bir sayı ve bir harf içermeli
  *               organisation:
  *                 type: object
  *                 properties:
@@ -227,7 +227,7 @@ export default router;
  * /auth/forgot-password:
  *   post:
  *     summary: Forgot password
- *     description: An email will be sent to reset password.
+ *     description: Şifreyi sıfırlamak için bir e-posta gönderilecektir.
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -262,7 +262,7 @@ export default router;
  *         required: true
  *         schema:
  *           type: string
- *         description: The reset password token
+ *         description: Şifre sıfırlama token'ı
  *     requestBody:
  *       required: true
  *       content:

@@ -23,7 +23,7 @@ export default router;
  * @swagger
  * tags:
  *   name: Users
- *   description: User management and retrieval
+ *   description: Kullanıcı yönetimi ve erişim
  */
 
 /**
@@ -31,7 +31,7 @@ export default router;
  * /users:
  *   post:
  *     summary: Create a user
- *     description: Only admins can create other users.
+ *     description: Yalnızca admin rolune sahip kullanıcılar başka user oluşturabilir.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -82,7 +82,7 @@ export default router;
  *
  *   get:
  *     summary: Get all users
- *     description: Only admins can retrieve all users.
+ *     description: Yalnızca admin rolune sahip olanlar tüm kullanıcıları alabilir.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -101,7 +101,7 @@ export default router;
  *         name: sortBy
  *         schema:
  *           type: string
- *         description: sort by query in the form of field:desc/asc (ex. name:asc)
+ *         description: form of fieldları query'e göresırala :desc/asc (ex. name:asc)
  *       - in: query
  *         name: limit
  *         schema:
@@ -151,7 +151,7 @@ export default router;
  * /users/{id}:
  *   get:
  *     summary: Get a user
- *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     description: Oturum açan kullanıcılar yalnızca kendi kullanıcı bilgilerini alabilir. Yalnızca admin rolune sahip kullanıcılar diğer kullanıcıları getirebilir.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -178,7 +178,7 @@ export default router;
  *
  *   patch:
  *     summary: Update a user
- *     description: Logged in users can only update their own information. Only admins can update other users.
+ *     description: Giriş yapan kullanıcılar sadece kendi bilgilerini güncelleyebilirler. Yalnızca admin rolune sahip olanlar diğer kullanıcıları güncelleyebilir.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -229,7 +229,7 @@ export default router;
  *
  *   delete:
  *     summary: Delete a user
- *     description: Logged in users can delete only themselves. Only admins can delete other users.
+ *     description: Oturum açan kullanıcılar yalnızca kendilerini silebilir. Yalnızca admin rolune sahip olanlar diğer kullanıcıları silebilir.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []

@@ -46,44 +46,188 @@ components:
           type: number
         message:
           type: string
+    
+  
+    CustomerList:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        creationDate:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment'
+        organisationId:
+          type: integer
+        organisation:
+          $ref: '#/components/schemas/Organisation'
+      required:
+        - id
+        - name
+        - creationDate
+        - updatedAt
+        - customers
+        - segments
+        - organisationId
+        - organisation
+      example:
+        id: 1
+        name: 'Customer List 1'
+        description: 'This is a description for Customer List 1'
+        creationDate: '2022-01-01T00:00:00Z'
+        updatedAt: '2022-01-01T00:00:00Z'
+        customers: []
+        segments: []
+        organisationId: 1
+        organisation: {}
+
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+        customerListId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        age:
+          type: integer
+        gender:
+          type: string
+          enum: [MALE, FEMALE, LGBT]
+        location:
+          type: string
+          nullable: true
+        incomeLevel:
+          type: string
+          nullable: true
+        educationLevel:
+          type: string
+          nullable: true
+        websiteTimeSpent:
+          type: integer
+          nullable: true
+        pageViewCount:
+          type: integer
+          nullable: true
+        purchaseHistory:
+          type: string
+          nullable: true
+        emailOpeningRate:
+          type: number
+          format: float
+          nullable: true
+        clickRate:
+          type: number
+          format: float
+          nullable: true
+        socialMediaInteraction:
+          type: object
+          nullable: true
+        interests:
+          type: string
+          nullable: true
+        lastActivityDate:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - id
+        - customerListId
+        - firstName
+        - lastName
+        - email
+        - age
+        - gender
+
+    Segment:
+      type: object
+      properties:
+        id:
+          type: integer
+        customerListId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        criteria:
+          type: string
+      required:
+        - id
+        - customerListId
+        - name
+        - criteria
 
   responses:
     DuplicateEmail:
-      description: Email already taken
+      description: Email zaten alındı
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
           example:
             code: 400
-            message: Email already taken
+            message: Email zaten alındı
     Unauthorized:
-      description: Unauthorized
+      description: Yetkisiz
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
           example:
             code: 401
-            message: Please authenticate
+            message: Lütfen kimliğinizi doğrulayın
     Forbidden:
-      description: Forbidden
+      description: Yasaklı
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
           example:
             code: 403
-            message: Forbidden
+            message: Yasaklı
     NotFound:
-      description: Not found
+      description: Bulunamadı
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
           example:
             code: 404
-            message: Not found
+            message: Bulunamadı
+    WrongFileFormat:
+      description: Yüklenecek dosya .csv formatında olmalıdır. Lütfen .csv uzantılı bir dosyayla tekrar deneyin.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 400
+            message: Yüklenecek dosya .csv formatında olmalıdır. Lütfen .csv uzantılı bir dosyayla tekrar deneyin.
 
   securitySchemes:
     bearerAuth:
