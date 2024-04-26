@@ -7,6 +7,7 @@ export interface AuthContextType {
   forgotPassword: (email: string) => void;
   passwordReset: (email: string, token: any) => void;
   logout: () => void;
+  verificationEmail: () => void;
   register: (payload: RegisterPayload) => void;
 }
 
@@ -28,6 +29,16 @@ export interface AuthResponse {
   tokens: {
     access: Tokens;
     refresh: Tokens;
+  };
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    lastName: string;
+    role: string;
+    isEmailVerified: boolean;
+    createdAt: string;
+    updatedAt: string;
   };
 }
 
