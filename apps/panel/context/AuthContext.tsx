@@ -18,12 +18,13 @@ const accessTokenExpires = Cookies.get('accessTokenExpires');
 const refreshToken = Cookies.get('refreshToken');
 const api = axios.create({ baseURL: 'http://localhost:3024/v1/auth' });
 
-const setTokens = (access: Tokens, refresh: Tokens) => {
+const setTokens = (access: Tokens, refresh: Tokens, userId?: number) => {
   const accessExpired = new Date(access.expires);
   const refreshExpired = new Date(refresh.expires);
   Cookies.set('accessToken', access.token, { expires: accessExpired });
   Cookies.set('accessTokenExpires', access.expires);
   Cookies.set('refreshToken', refresh.token, { expires: refreshExpired });
+  if (userId) Cookies.set('userId', userId);
 };
 
 const refreshTokenFunction = async () => {
@@ -64,8 +65,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await api.post<AuthResponse>('/login', { email, password });
       setUser(response);
       const tokens = response?.data?.tokens;
+      const userId = response?.data?.user?.id;
       if (tokens) {
-        setTokens(tokens.access, tokens.refresh);
+        setTokens(tokens.access, tokens.refresh, userId);
         setError('');
         window.location.pathname = '/';
       } else {
@@ -111,6 +113,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const verificationEmail = async (): Promise<void> => {
+    setLoading(true);
+    try {
+      const response = await api.post<AuthResponse>(
+        '/send-verification-email',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      if (response.status === 204) {
+        setSuccess('E-posta adresinize doğrulama maili gönderildi, lütfen kontrol edin.');
+        setError('');
+      }
+    } catch (error: any) {
+      setError(error?.response?.data?.message);
+      setSuccess('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
@@ -124,8 +150,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await api.post<AuthResponse>('/register', payload);
       const tokens = response?.data?.tokens;
+      const userId = response?.data?.user?.id;
       if (tokens) {
-        setTokens(tokens.access, tokens.refresh);
+        setTokens(tokens.access, tokens.refresh, userId);
         setError('');
         window.location.pathname = '/';
       } else {
@@ -138,5 +165,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  return <AuthContext.Provider value={{ user, error, success, loading, login, forgotPassword, passwordReset, logout, register }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, error, success, loading, login, forgotPassword, passwordReset, verificationEmail, logout, register }}>{children}</AuthContext.Provider>
+  );
 };
