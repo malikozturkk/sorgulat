@@ -7,6 +7,7 @@ import { Layout } from '../components/layout/layout';
 import { AuthProvider } from '@/context/AuthContext';
 import VerifyEmailModal from '@/components/verifyEmailModal';
 import { usePathname } from 'next/navigation';
+import { CustomerListProvider } from '@/context/CustomerListContext/CustomerListContext';
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -20,8 +21,10 @@ export function Providers({ children, themeProps, isEmailVerified }: ProvidersPr
     <NextUIProvider>
       <NextThemesProvider defaultTheme="system" attribute="class" {...themeProps}>
         <AuthProvider>
-          {isEmailVerified !== undefined && !isEmailVerified && pathname !== '/email-dogrulama' && <VerifyEmailModal />}
-          <Layout>{children}</Layout>
+          <CustomerListProvider>
+            {isEmailVerified !== undefined && !isEmailVerified && pathname !== '/email-dogrulama' && <VerifyEmailModal />}
+            <Layout>{children}</Layout>
+          </CustomerListProvider>
         </AuthProvider>
       </NextThemesProvider>
     </NextUIProvider>
